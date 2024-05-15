@@ -9,7 +9,7 @@ import "react-resizable/css/styles.css";
 export const Modal: React.FC<ModalProps> = (props) => {
     const draggableRef = useRef<HTMLDivElement>(null);
     const [width, setWidth] = useState(props.width || window.innerWidth / 3);
-    const [height, setHeight] = useState(200);
+    const [height, setHeight] = useState(props.width || (window.innerHeight * 2) / 5);
     const [disabled, setDisabled] = useState(true);
     const [bounds, setBounds] = useState({left: 0, top: 0, bottom: 0, right: 0});
     const onStart = (_event: DraggableEvent, uiData: DraggableData) => {
