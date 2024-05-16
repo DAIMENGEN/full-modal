@@ -2,7 +2,7 @@
   "name": "full-modal",
   "author": "mengen.dai",
   "module": "dist/full-modal.esm.js",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "keywords": [
     "modal",
     "full-modal",
