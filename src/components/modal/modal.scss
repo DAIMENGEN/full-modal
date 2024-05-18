@@ -1,6 +1,9 @@
 .full-modal {
   @import "../common-styles/schedule-scrollbar";
   .react-resizable {
-    overflow: auto;
+    overflow-x: auto;
+  }
+  .ant-modal-body {
+    overflow-y: auto;
   }
 }

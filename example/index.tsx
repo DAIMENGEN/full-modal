@@ -17,6 +17,33 @@ const App = () => {
                 <FullModal afterClose={() => {
                 }} destroyOnClose={true} title="Basic Modal" open={open} closable={true} onOk={() => setOpen(false)} onCancel={() => setOpen(false)}>
                     <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
+                    <div style={{width: 200}}>哈哈哈哈哈</div>
                 </FullModal>
             </div>
         </div>

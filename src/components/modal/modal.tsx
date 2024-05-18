@@ -26,7 +26,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
                    width={resizableWidth}
                    styles={{
                        body: {
-                           height: resizableHeight,
+                           height: resizableHeight === 0 ? "auto" : resizableHeight,
                        }
                    }}
                    afterClose={() => {
@@ -45,6 +45,15 @@ export const Modal: React.FC<ModalProps> = (props) => {
                             onMouseOut={() => setDisabled(true)}>
                            {props.title}
                        </div>}
+                   afterOpenChange={(open) => {
+                       if (open) {
+                           const selector = document.querySelector(".ant-modal-body") as HTMLDivElement;
+                           const height = selector.getBoundingClientRect().height;
+                           setResizableHeight(height);
+                       }
+                       const change = props.afterOpenChange;
+                       change && change(open);
+                   }}
                    modalRender={(modal) => (
                        <Draggable disabled={disabled}
                                   bounds={bounds}
