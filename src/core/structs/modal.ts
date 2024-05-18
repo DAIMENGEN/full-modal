@@ -1,3 +1,2 @@
-import {ModalProps as AntdModalProps} from "antd";
-
+import { ModalProps as AntdModalProps} from "antd";
 export type ModalProps = AntdModalProps;
