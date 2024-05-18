@@ -1,46 +1,62 @@
 import * as React from "react";
-import {useRef, useState} from "react";
+import {useState} from "react";
 import {Modal as AntdModal} from "antd";
 import {ModalProps} from "../../core/structs/modal";
-import Draggable, {DraggableData, DraggableEvent} from "react-draggable";
+import Draggable from "react-draggable";
+import {useDraggableOnStart} from "./hooks/useDraggableOnStart";
+import {Resizable} from "react-resizable";
+import {useResizableOnResize} from "./hooks/useResizableOnResize";
+import {CommonUtil} from "../../utils/common-util";
+import "./modal.scss";
 
 export const Modal: React.FC<ModalProps> = (props) => {
-    const draggableRef = useRef<HTMLDivElement>(null);
+    const defaultWidth = CommonUtil.parse(props.width || window.innerWidth / 2);
     const [disabled, setDisabled] = useState(true);
-    const [bounds, setBounds] = useState({left: 0, top: 0, bottom: 0, right: 0});
-    const onStart = (_event: DraggableEvent, uiData: DraggableData) => {
-        const {clientWidth, clientHeight} = window.document.documentElement;
-        const targetRect = draggableRef.current?.getBoundingClientRect();
-        if (!targetRect) {
-            return;
-        }
-        setBounds({
-            left: -targetRect.left + uiData.x,
-            right: clientWidth - (targetRect.right - uiData.x),
-            top: -targetRect.top + uiData.y,
-            bottom: clientHeight - (targetRect.bottom - uiData.y),
-        });
-    };
+    const {draggableRef, bounds, onStart} = useDraggableOnStart();
+    const {
+        resizableWidth,
+        resizableHeight,
+        setResizableWidth,
+        setResizableHeight,
+        onResize
+    } = useResizableOnResize(defaultWidth);
     return (
         <AntdModal {...props}
-               title={
-                   <div style={{width: "100%", cursor: "move"}}
-                        onBlur={() => {
-                        }}
-                        onFocus={() => {
-                        }}
-                        onMouseOver={() => disabled && setDisabled(false)}
-                        onMouseOut={() => setDisabled(true)}>
-                       {props.title}
-                   </div>}
-               modalRender={(modal) => (
-                   <Draggable disabled={disabled}
-                              bounds={bounds}
-                              nodeRef={draggableRef}
-                              onStart={(event, uiData) => onStart(event, uiData)}>
-                       <div ref={draggableRef}>{modal}</div>
-                   </Draggable>
-               )}>
+                   className={`full-modal ${props.className}`}
+                   width={resizableWidth}
+                   styles={{
+                       body: {
+                           height: resizableHeight,
+                       }
+                   }}
+                   afterClose={() => {
+                       setResizableWidth(defaultWidth);
+                       setResizableHeight(0);
+                       const close = props.afterClose;
+                       close && close();
+                   }}
+                   title={
+                       <div style={{width: "100%", cursor: "move"}}
+                            onBlur={() => {
+                            }}
+                            onFocus={() => {
+                            }}
+                            onMouseOver={() => disabled && setDisabled(false)}
+                            onMouseOut={() => setDisabled(true)}>
+                           {props.title}
+                       </div>}
+                   modalRender={(modal) => (
+                       <Draggable disabled={disabled}
+                                  bounds={bounds}
+                                  nodeRef={draggableRef}
+                                  onStart={(event, uiData) => onStart(event, uiData)}>
+                           <div ref={draggableRef}>
+                               <Resizable width={resizableWidth} height={resizableHeight} onResize={onResize}>
+                                   {modal}
+                               </Resizable>
+                           </div>
+                       </Draggable>
+                   )}>
             {props.children}
         </AntdModal>
     )
