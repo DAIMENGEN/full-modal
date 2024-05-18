@@ -47,8 +47,9 @@ export const Modal: React.FC<ModalProps> = (props) => {
                        </div>}
                    afterOpenChange={(open) => {
                        if (open) {
-                           const selector = document.querySelector(".ant-modal-body") as HTMLDivElement;
-                           const height = selector.getBoundingClientRect().height;
+                           const antModalBody = document.querySelector(".ant-modal-body") as HTMLElement;
+                           const content = antModalBody.firstElementChild as HTMLElement;
+                           const height = content.getBoundingClientRect().height;
                            setResizableHeight(height);
                        }
                        const change = props.afterOpenChange;
