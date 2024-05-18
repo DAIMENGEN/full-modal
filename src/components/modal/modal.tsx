@@ -11,6 +11,7 @@ import "./modal.scss";
 
 export const Modal: React.FC<ModalProps> = (props) => {
     const defaultWidth = CommonUtil.parse(props.width || window.innerWidth / 2);
+    const defaultHeight = CommonUtil.parse(props.height || window.innerHeight / 2);
     const [disabled, setDisabled] = useState(true);
     const {draggableRef, bounds, onStart} = useDraggableOnStart();
     const {
@@ -19,7 +20,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
         setResizableWidth,
         setResizableHeight,
         onResize
-    } = useResizableOnResize(defaultWidth);
+    } = useResizableOnResize(defaultWidth, defaultHeight);
     return (
         <AntdModal {...props}
                    className={`full-modal ${props.className}`}
@@ -31,7 +32,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
                    }}
                    afterClose={() => {
                        setResizableWidth(defaultWidth);
-                       setResizableHeight(0);
+                       setResizableHeight(defaultHeight);
                        const close = props.afterClose;
                        close && close();
                    }}
@@ -45,16 +46,6 @@ export const Modal: React.FC<ModalProps> = (props) => {
                             onMouseOut={() => setDisabled(true)}>
                            {props.title}
                        </div>}
-                   afterOpenChange={(open) => {
-                       if (open) {
-                           const antModalBody = document.querySelector(".ant-modal-body") as HTMLElement;
-                           const content = antModalBody.firstElementChild as HTMLElement;
-                           const height = content.getBoundingClientRect().height;
-                           setResizableHeight(height);
-                       }
-                       const change = props.afterOpenChange;
-                       change && change(open);
-                   }}
                    modalRender={(modal) => (
                        <Draggable disabled={disabled}
                                   bounds={bounds}
